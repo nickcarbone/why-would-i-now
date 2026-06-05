@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Would I Now? — The Decemberists | Critical Essay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0d1a0f;
+      --surface:      #121e14;
+      --hero-bg:      #142016;
+      --text:         #ede7d3;
+      --text-muted:   #8fa886;
+      --text-dim:     #5a7060;
+      --accent:       #c8a25f;
+      --accent-dim:   rgba(200, 162, 95, 0.18);
+      --accent-faint: rgba(200, 162, 95, 0.07);
+      --divider:      rgba(200, 162, 95, 0.18);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 19px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--accent);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 3rem;
+      border-bottom: 1px solid var(--divider);
+      position: sticky;
+      top: 0;
+      background: rgba(13, 26, 15, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .masthead-wordmark {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .masthead-nav {
+      display: flex;
+      gap: 2.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      background: var(--hero-bg);
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 3rem 4rem;
+      overflow: hidden;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    /* subtle radial glow behind hero text */
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 70%;
+      height: 80%;
+      background: radial-gradient(ellipse at 20% 80%, rgba(200,162,95,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* botanical SVG right side */
+    .hero-botanical {
+      position: absolute;
+      top: 0; right: -2%;
+      width: 46%;
+      height: 100%;
+      opacity: 0.14;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(3.4rem, 8vw, 6.8rem);
+      line-height: 0.95;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-artist {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      margin-bottom: 2.2rem;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+
+    .hero-rule {
+      width: 48px;
+      height: 1px;
+      background: var(--accent);
+      margin-bottom: 2rem;
+      animation: expandWidth 0.7s ease 0.4s both;
+    }
+
+    .hero-deck {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.7s ease 0.5s both;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s ease 0.6s both;
+    }
+
+    .hero-byline,
+    .hero-date {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .hero-byline strong,
+    .hero-date strong {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ── ARTICLE ── */
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem 7rem;
+    }
+
+    /* drop cap */
+    .article-wrap > p:first-of-type::first-letter {
+      font-family: var(--font-display);
+      font-size: 5em;
+      font-weight: 900;
+      line-height: 0.78;
+      float: left;
+      margin: 0.06em 0.1em 0 0;
+      color: var(--accent);
+    }
+
+    .article-wrap p {
+      margin-bottom: 1.6rem;
+    }
+
+    .article-wrap em {
+      font-style: italic;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 4rem 0 1.8rem;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .section-label.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .section-label h2 {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .section-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--divider);
+    }
+
+    /* ── LYRIC BLOCK ── */
+    .lyric-block {
+      margin: 2.4rem 0 2.4rem 0;
+      padding: 1.6rem 1.8rem 1.6rem 2rem;
+      border-left: 2px solid var(--accent);
+      background: var(--accent-faint);
+    }
+
+    .lyric-block p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 3.5rem -3rem;
+      padding: 2.5rem 3.5rem;
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+      background: var(--accent-faint);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .pull-quote.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .pull-quote p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.55rem;
+      line-height: 1.5;
+      color: var(--text);
+      margin: 0;
+      position: relative;
+    }
+
+    .pull-quote p::before {
+      content: '\201C';
+      font-size: 3.5rem;
+      line-height: 0;
+      color: var(--accent);
+      vertical-align: -0.38em;
+      margin-right: 0.08em;
+      font-style: normal;
+    }
+
+    /* ── BOTANICAL DIVIDER ── */
+    .flora-divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 4rem 0 2rem;
+      gap: 1.2rem;
+    }
+
+    .flora-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--divider);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--divider);
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: var(--surface);
+    }
+
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes expandWidth {
+      from { width: 0; opacity: 0; }
+      to   { width: 48px; opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .masthead { padding: 1.2rem 1.5rem; }
+      .masthead-nav { display: none; }
+      .hero { padding: 4rem 1.5rem 3rem; min-height: 75vh; }
+      .hero-botanical { width: 70%; opacity: 0.08; }
+      .article-wrap { padding: 3.5rem 1.5rem 5rem; }
+      .pull-quote { margin: 2.5rem -1rem; padding: 2rem 1.5rem; }
+      .pull-quote p { font-size: 1.25rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reading Progress -->
+  <div id="progress-bar"></div>
+
+  <!-- ── MASTHEAD ── -->
+  <header class="masthead">
+    <span class="masthead-wordmark">Florasongs &mdash; Critical Writing</span>
+    <nav class="masthead-nav">
+      <span>Essay</span>
+      <span>The Decemberists</span>
+      <span>2015</span>
+    </nav>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+
+    <!-- Botanical illustration (right side) -->
+    <svg class="hero-botanical" viewBox="0 0 520 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Primary fern: main stem -->
+      <path d="M420 800 C400 690 374 570 310 400 C258 250 215 120 195 20" stroke="#c8a25f" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <!-- Right-side leaflets, lower -->
+      <path d="M408 768 C375 745 342 735 320 742" stroke="#c8a25f" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M395 735 C360 710 326 700 303 709" stroke="#c8a25f" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M382 700 C345 673 310 663 286 673" stroke="#c8a25f" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M368 663 C330 634 294 624 269 636" stroke="#c8a25f" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M352 625 C313 594 276 584 250 597" stroke="#c8a25f" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M335 585 C295 552 257 542 230 556" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M316 543 C275 508 237 498 210 513" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M296 500 C254 464 215 455 188 470" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <path d="M274 455 C232 418 193 410 167 426" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <!-- Left-side leaflets -->
+      <path d="M408 768 C436 746 456 736 466 742" stroke="#c8a25f" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M395 735 C424 712 445 703 456 710" stroke="#c8a25f" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M382 700 C412 676 434 667 446 674" stroke="#c8a25f" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M368 663 C399 639 422 630 434 638" stroke="#c8a25f" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M352 625 C384 600 408 592 420 600" stroke="#c8a25f" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M335 585 C368 560 393 552 406 561" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M316 543 C350 517 375 510 389 519" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M296 500 C331 474 357 467 371 476" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <!-- Upper fine leaflets -->
+      <path d="M252 408 C218 378 198 374 190 386" stroke="#c8a25f" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+      <path d="M230 362 C196 332 176 328 169 340" stroke="#c8a25f" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+      <path d="M210 316 C175 284 155 280 148 293" stroke="#c8a25f" stroke-width="0.6" fill="none" stroke-linecap="round"/>
+      <path d="M250 408 C278 380 297 374 302 386" stroke="#c8a25f" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+      <path d="M228 362 C258 333 278 328 284 341" stroke="#c8a25f" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+      <!-- Terminal bud -->
+      <circle cx="195" cy="20" r="4" fill="#c8a25f"/>
+      <circle cx="188" cy="34" r="2.5" fill="#c8a25f"/>
+      <circle cx="203" cy="32" r="2.5" fill="#c8a25f"/>
+      <circle cx="196" cy="46" r="2" fill="#c8a25f" opacity="0.7"/>
+      <!-- Secondary plant, left -->
+      <path d="M90 800 C102 714 124 620 155 498 C182 394 214 280 230 185" stroke="#c8a25f" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M99 776 C74 754 56 749 50 757" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M109 744 C82 721 63 715 56 724" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M121 710 C92 686 72 680 64 689" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <path d="M134 673 C103 647 82 641 73 651" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <path d="M99 776 C118 754 130 747 134 754" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M109 744 C130 722 143 715 148 722" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M121 710 C144 688 158 681 163 688" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <path d="M134 673 C158 651 173 644 178 651" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <!-- Scattered seeds/spores -->
+      <circle cx="470" cy="160" r="1.8" fill="#c8a25f" opacity="0.5"/>
+      <circle cx="480" cy="178" r="1.2" fill="#c8a25f" opacity="0.35"/>
+      <circle cx="460" cy="190" r="1.5" fill="#c8a25f" opacity="0.4"/>
+      <circle cx="488" cy="145" r="1" fill="#c8a25f" opacity="0.3"/>
+      <circle cx="50" cy="350" r="1.5" fill="#c8a25f" opacity="0.4"/>
+      <circle cx="38" cy="365" r="1" fill="#c8a25f" opacity="0.3"/>
+      <circle cx="60" cy="380" r="1.2" fill="#c8a25f" opacity="0.35"/>
+      <circle cx="500" cy="350" r="1" fill="#c8a25f" opacity="0.25"/>
+      <circle cx="510" cy="400" r="1.5" fill="#c8a25f" opacity="0.3"/>
+    </svg>
+
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Essay &nbsp;&bull;&nbsp; Florasongs EP &nbsp;&bull;&nbsp; Outtake Criticism</p>
+      <h1 class="hero-title">Why Would<br/><em>I Now?</em></h1>
+      <p class="hero-artist">The Decemberists</p>
+      <div class="hero-rule"></div>
+      <p class="hero-deck">The Decemberists' quietly buried outtake says more with rhetorical questions than most songs manage with declarations — and its plainness is the whole point.</p>
+      <div class="hero-meta">
+        <p class="hero-byline">By &nbsp;<strong>Nick</strong></p>
+        <p class="hero-date">Published &nbsp;<strong>2025</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ARTICLE ── -->
+  <main>
+    <div class="article-wrap">
+
+      <p>There's a particular kind of loyalty that doesn't announce itself. It doesn't build to a chorus, it doesn't reach for a key change, and it definitely doesn't tell you it loves you. It just turns to you — after years, after the hard stretches, after the times it loathed your name — and asks a quiet, slightly bewildering question: <em>why would I start failing you now?</em></p>
+
+      <p>That's the entire architecture of "Why Would I Now?", the opening track from the Decemberists' 2015 EP <em>Florasongs</em> — a five-song collection of outtakes from the <em>What a Terrible World, What a Beautiful World</em> sessions. The fact that it didn't make the album is worth sitting with, not because it's weaker material, but because it may have been too emotionally undefended for a record already pushing against the band's own comfort zone. Those sessions were the band's first after a four-year hiatus Colin Meloy spent largely writing and parenting, and the album wears that domestic reckoning visibly. "Why Would I Now?" goes even further — strips away the historical distance, the archaic vocabulary, the conceptual scaffolding — and says something plainly. For Meloy, that's an unusual risk.</p>
+
+      <!-- SECTION 1 -->
+      <div class="section-label">
+        <h2>I &nbsp;&mdash;&nbsp; Loyalty as Negative Proof</h2>
+        <div class="section-label-line"></div>
+      </div>
+
+      <p>The song's entire rhetorical structure is built on negative questions. Every verse runs the same move: <em>Have I ever done X? No. Then why would I now?</em> Meloy never says "I will always be there for you." He doesn't promise anything about the future. Instead, he presents a record of conduct:</p>
+
+      <div class="lyric-block">
+        <p>Have I ever lost your way?<br/>
+        Have I ever left you waylaid?<br/>
+        Have I ever come unstayed?<br/>
+        Why would I now?</p>
+      </div>
+
+      <p>This framing is more persuasive — and more honest — than a direct declaration would be. Declarations of love live in the present tense and make claims about the future. They're aspirational. A record of conduct is verifiable. It appeals to shared history rather than present feeling. The implicit argument: you don't need to trust my intentions, just look at what I've actually done.</p>
+
+      <div class="pull-quote">
+        <p>It avoids sentimentality by design. "I will always be there for you" is a promise that can be broken. "Have I ever not been there?" is a question with an accumulated answer.</p>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div class="section-label">
+        <h2>II &nbsp;&mdash;&nbsp; The "There Were Times" Stanzas</h2>
+        <div class="section-label-line"></div>
+      </div>
+
+      <p>This is where the song earns its complexity. Meloy doesn't just stack up credentials as a loyal partner or friend. He admits real failure:</p>
+
+      <div class="lyric-block">
+        <p>There were times I loathed your name<br/>
+        There were times I laid on the blame<br/>
+        There were times I brought on shame<br/>
+        But why would I now?</p>
+      </div>
+
+      <p>The "but" in that final line is doing quiet, significant work. It holds the admissions and the commitment in the same breath without dissolving the tension between them. He's not saying <em>despite</em> those failures he stayed. He's saying those failures <em>are</em> the relationship — the actual texture of it, not the exception — and staying is still the answer.</p>
+
+      <p>Most loyalty-themed songs either erase the difficult material or relegate it to a bridge that resolves narratively. Here, the bad stuff is structural. It's in every verse. That's a notably mature emotional register, and a notably honest one.</p>
+
+      <!-- SECTION 3 -->
+      <div class="section-label">
+        <h2>III &nbsp;&mdash;&nbsp; The Chorus: Limitation as a Form of Love</h2>
+        <div class="section-label-line"></div>
+      </div>
+
+      <p>The chorus is where Meloy's literary instincts reassert themselves — and usefully so, because these two lines carry the most weight in the song:</p>
+
+      <div class="lyric-block">
+        <p>For I will never be your familiar soul<br/>
+        And I will never see your imperial hold</p>
+      </div>
+
+      <p>"Familiar" operates on two frequencies simultaneously. In the everyday sense, it means fully known, fully understood. In the older esoteric sense — one Meloy, who has spent his career trafficking in folk mythology and antiquarian reference, would absolutely be aware of — a familiar is a spirit bound to a person. Either reading lands: the speaker acknowledging they'll never be entirely knowable to the other person, or that they'll never achieve the kind of merged, symbiotic intimacy that erases individual edges.</p>
+
+      <p>"Imperial hold" is harder. Empire, dominion, authority. The speaker seems to be acknowledging that the other person's interiority — whatever it is that draws them, holds them, makes the relationship feel necessary — exceeds their full comprehension. They can't see it whole. They can't map it.</p>
+
+      <p>Taken together, these lines are a concession of limitation placed inside a declaration of commitment. <em>I will never fully know you. I will never understand what you are to me.</em> And the "but" that follows: none of that changes what I do. Action over understanding. Presence over comprehension.</p>
+
+      <div class="pull-quote">
+        <p>That's not a romantic's argument — it's a realist's. And it's more durable for it.</p>
+      </div>
+
+      <!-- SECTION 4 -->
+      <div class="section-label">
+        <h2>IV &nbsp;&mdash;&nbsp; Who Is Being Addressed?</h2>
+        <div class="section-label-line"></div>
+      </div>
+
+      <p>The song refuses to close this question, which feels deliberate. The most obvious reading is a long-term romantic partner — the admissions of resentment and shame, the broken-through walls, the durability through difficulty, all map cleanly onto a marriage or long partnership with genuine weather in it.</p>
+
+      <p>But "familiar soul" and "imperial hold" carry a slight formality that doesn't quite settle into domestic intimacy, and an old friendship — one where the emotional vocabulary is less practiced, more bounded — fits nearly as well. There's also a more interesting reading beneath both: the song addressed to a child. <em>I will never be your familiar soul</em> takes on different weight when a parent is watching someone become a person they can't entirely know. <em>There were times I loathed your name</em> becomes something rawer, more honest about the unreported difficulty of early parenthood. Meloy became a father during the years before these sessions; <em>WTAWABW</em> is threaded with domesticity in ways his earlier work rarely was. A parent's commitment — <em>I have never stood back and watched you fall, so why would I now?</em> — carries its own particular gravity.</p>
+
+      <p>One more possibility lurks at the edges. <em>WTAWABW</em> opens with "The Singer Addresses His Audience," Meloy's drolly meta-commentary on the tension between artistic evolution and fan expectation. "Why Would I Now?" could be the other side of that conversation — not the apology for having changed, but the assurance that changing doesn't mean leaving. <em>Have I ever not shown up for you?</em></p>
+
+      <p>All of these readings can coexist. The song is better for it.</p>
+
+      <!-- SECTION 5 -->
+      <div class="section-label">
+        <h2>V &nbsp;&mdash;&nbsp; The Plain Style and What It Signals</h2>
+        <div class="section-label-line"></div>
+      </div>
+
+      <p>Meloy built his reputation on vocabulary that sends listeners to dictionaries — palanquins, minarets, charlatans, fontanelles. His songs typically approach emotion at an angle: through historical narrative, mythological character, deliberate anachronism. "Why Would I Now?" is written almost entirely in the vernacular. "Have I ever steered you wrong? / Have I ever strung you along?" — idiomatic, conversational, no armor.</p>
+
+      <p>For a songwriter whose default mode is elaborate historical costume, that plainness registers as exposure. The departure from his own aesthetic is itself a signal: when Meloy writes without the masks, something actual is being said. This is likely part of why the song became an outtake — not because it's weaker, but because it's less defended, and the album it was cut from was already pushing against the band's comfort zone. Released quietly on an EP of session leftovers, it found exactly the right container: small, unhurried, off to the side.</p>
+
+      <div class="pull-quote">
+        <p>When Meloy writes without the masks, something actual is being said. The EP gave it the right container — small, unhurried, off to the side.</p>
+      </div>
+
+      <!-- SECTION 6 -->
+      <div class="section-label">
+        <h2>VI &nbsp;&mdash;&nbsp; The Emotional Argument</h2>
+        <div class="section-label-line"></div>
+      </div>
+
+      <p>What the song is ultimately making is this case: commitment is not proven by declaration, it's proven by record. And that record doesn't have to be clean. The speaker has loathed, blamed, brought shame — and stayed anyway. The promise being offered is not the promise of someone for whom loyalty came easily. It's the promise of someone who knows exactly how hard it's been and is making it regardless.</p>
+
+      <p>The phrasing of the title matters. "Why would I now?" isn't triumphant. It has a note of weariness in it, even of quiet bewilderment — <em>after everything we've been through, after everything I've admitted to, why would this be the moment I stop?</em> The commitment has earned its cost rather than been offered freely from a position of ease.</p>
+
+      <p>That's what makes it one of the more affecting things Meloy has written: not the craft, which is considerable, but the fact that it doesn't hide behind the craft. It just asks its question, and waits.</p>
+
+      <!-- Flora divider -->
+      <div class="flora-divider">
+        <div class="flora-divider-line"></div>
+        <svg width="60" height="36" viewBox="0 0 60 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 32 C30 24 30 16 30 6" stroke="#c8a25f" stroke-width="1" stroke-linecap="round"/>
+          <path d="M30 18 C24 12 18 12 18 18" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M30 18 C36 12 42 12 42 18" stroke="#c8a25f" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M30 26 C22 20 14 20 16 28" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+          <path d="M30 26 C38 20 46 20 44 28" stroke="#c8a25f" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+          <circle cx="30" cy="5" r="2" fill="#c8a25f"/>
+          <circle cx="26" cy="8" r="1.2" fill="#c8a25f" opacity="0.6"/>
+          <circle cx="34" cy="8" r="1.2" fill="#c8a25f" opacity="0.6"/>
+        </svg>
+        <div class="flora-divider-line"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>The Decemberists &nbsp;&bull;&nbsp; Florasongs EP &nbsp;&bull;&nbsp; Capitol Records &nbsp;&bull;&nbsp; October 9, 2015</p>
+    <p>Written by Colin Meloy &nbsp;&bull;&nbsp; Produced by Tucker Martine</p>
+  </footer>
+
+  <!-- ── JS: Progress + Scroll Reveals ── -->
+  <script>
+    // Reading progress bar
+    const bar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+    });
+
+    // Intersection observer for section labels + pull quotes
+    const reveals = document.querySelectorAll('.section-label, .pull-quote');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
